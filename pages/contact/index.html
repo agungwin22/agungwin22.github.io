@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - Agung Cahyono</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/contact.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-btn">← Kembali ke Beranda</a>
+        
+        <div class="form-container">
+            <h2 class="form-title">Kirim Pesan via WhatsApp</h2>
+            
+            <div class="whatsapp-info">
+                <h4>ℹ️ Informasi Penting</h4>
+                <p>Form ini akan membuka percakapan WhatsApp langsung. Pastikan Anda memiliki aplikasi WhatsApp terpasang di perangkat Anda. Pesan akan dikirimkan melalui WhatsApp Business saya.</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+            
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name" class="form-label">Nama Lengkap *</label>
+                    <input type="text" id="name" name="name" class="form-input" required placeholder="Masukkan nama lengkap Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email *</label>
+                    <input type="email" id="email" name="email" class="form-input" required placeholder="Masukkan alamat email Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject" class="form-label">Subjek *</label>
+                    <input type="text" id="subject" name="subject" class="form-input" required placeholder="Apa tujuan pesan Anda?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Pesan *</label>
+                    <textarea id="message" name="message" class="form-textarea" required placeholder="Tulis pesan Anda di sini..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Kirim via WhatsApp →</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/contact.js"></script>
+</body>
+</html>
