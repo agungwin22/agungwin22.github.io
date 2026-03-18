@@ -1,236 +1,969 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="assets/icon/logo.svg">
-    <title>Agung Cahyono | Web Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=menu" />
-    <link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>agungwin22 · frontend dev & template maker</title>
+  <!-- Google Fonts: Syne + DM Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- GLOBAL VARIABLES (from master plan) ---------- */
+    :root {
+      /* color */
+      --color-bg        : #080C10;
+      --color-surface   : #111720;
+      --color-border    : #1E2A38;
+      --color-accent    : #00E5FF;
+      --color-accent-dim: rgba(0, 229, 255, 0.03); /* REVISED: reduced opacity from 0.08 to 0.03 for softer grid */
+      --color-text      : #E8EDF2;
+      --color-muted     : #556070;
+
+      /* typography */
+      --font-display    : 'Syne', sans-serif;
+      --font-body       : 'DM Mono', monospace;
+      --text-xs         : 0.75rem;
+      --text-sm         : 0.875rem;
+      --text-base       : 1rem;        /* REVISED: base font size 16px (good for readability) */
+      --text-lg         : 1.25rem;
+      --text-xl         : 1.5rem;
+      --text-2xl        : 2rem;
+      --text-hero       : clamp(2.5rem, 6vw, 5rem);
+
+      /* spacing */
+      --space-xs        : 0.5rem;
+      --space-sm        : 1rem;
+      --space-md        : 1.5rem;
+      --space-lg        : 2.5rem;
+      --space-xl        : 4rem;
+      --space-section   : clamp(4rem, 10vw, 8rem);
+
+      /* layout */
+      --container-max   : 1200px;
+      --container-pad   : clamp(1.25rem, 5vw, 3rem); /* REVISED: increased horizontal padding to 20px minimum */
+      --border-radius   : 8px;
+      --border-radius-lg: 16px;
+      --card-radius     : 12px;
+
+      /* effects */
+      --shadow-card     : 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow     : 0 0 20px rgba(0, 229, 255, 0.15);
+      --transition-base : 0.25s ease;
+      --transition-slow : 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --blur-glass      : blur(12px);
+    }
+
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;                /* REVISED: comfortable line height for monospace */
+      background-image: 
+        linear-gradient(var(--color-accent-dim) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-accent-dim) 1px, transparent 1px);
+      background-size: 50px 50px; /* subtle grid */
+      min-height: 100vh;
+    }
+
+    /* container */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+
+    /* section spacing */
+    .section {
+      padding: var(--space-section) 0;
+    }
+
+    /* section header (reusable) */
+    .section-header {
+      margin-bottom: var(--space-lg);
+    }
+    .section-header__label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .section-header__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.2;
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition-base);
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+    .btn--primary {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      border-color: var(--color-accent);
+      font-weight: 600;
+    }
+    .btn--primary:hover {
+      background: transparent;
+      color: var(--color-accent);
+      box-shadow: var(--shadow-glow);
+    }
+    .btn--outline {
+      border: 1px solid var(--color-accent);
+      color: var(--color-accent);
+    }
+    .btn--outline:hover {
+      background: var(--color-accent-dim);
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem var(--container-pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transition: background 0.3s, backdrop-filter 0.3s;
+      background: transparent;
+    }
+    .navbar--scrolled {
+      background: rgba(8, 12, 16, 0.8);
+      backdrop-filter: var(--blur-glass);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .navbar__logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--color-accent);
+      text-decoration: none;
+      line-height: 1;
+    }
+    .navbar__links {
+      display: flex;
+      gap: var(--space-md);
+    }
+    .navbar__links a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 500;
+      transition: color var(--transition-base);
+    }
+    .navbar__links a:hover {
+      color: var(--color-accent);
+    }
+    .navbar__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+    .navbar__hamburger span {
+      width: 25px;
+      height: 2px;
+      background-color: var(--color-text);
+      transition: var(--transition-base);
+    }
+    @media (max-width: 767px) {
+      .navbar__links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--color-surface);
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-lg) 0;
+        gap: var(--space-md);
+        border-bottom: 1px solid var(--color-border);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        backdrop-filter: var(--blur-glass);
+        background: rgba(17, 23, 32, 0.95);
+      }
+      .navbar__links.active {
+        transform: translateY(0);
+      }
+      .navbar__hamburger {
+        display: flex;
+      }
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 60px; 
+      padding-bottom: var(--space-xl);
+    }
+    .hero__content {
+      max-width: 800px;
+    }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.02em;
+    }
+    .hero__headline span {
+      color: var(--color-accent);
+      font-size: 0.8em;               /* REVISED: smaller brand name to emphasize offering */
+    }
+    .hero__highlight {
+      font-size: 1.2em;                /* REVISED: larger "frontend & templates" for better hierarchy */
+      color: var(--color-text);
+      display: inline-block;
+    }
+    .hero__tagline {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-md);
+      min-height: 3rem;
+      font-family: var(--font-display);
+      color: var(--color-text);
+    }
+    .hero__tagline .typewriter {
+      border-right: 2px solid var(--color-accent);
+      padding-right: 5px;
+      animation: blink 0.7s step-end infinite;
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--color-accent); }
+    }
+    .hero__sub {
+      font-size: var(--text-lg);
+      color: rgba(232, 237, 242, 0.7);
+      margin-bottom: var(--space-lg);
+    }
+    .hero__cta-group {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    @media (max-width: 600px) {
+      .hero__cta-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero__cta-group .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+    .hero__scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      color: var(--color-muted);
+      font-size: 1.5rem;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .about__avatar {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1/1;
+      background: var(--color-surface);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      border: 2px solid var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: var(--color-accent);
+      font-family: var(--font-display);
+      font-weight: 700;
+      box-shadow: var(--shadow-glow);
+    }
+    .about__bio {
+      font-size: 1rem;                 /* REVISED: explicit 16px, line-height inherited 1.6 */
+      margin-bottom: var(--space-md);
+    }
+    .about__highlights {
+      display: flex;
+      gap: var(--space-lg);
+      margin: var(--space-md) 0;
+      flex-wrap: wrap;                 /* REVISED: allow wrapping on small screens */
+    }
+    .about__highlights div {
+      text-align: center;
+      flex: 1 1 100px;                 /* REVISED: each item can grow but min width 100px */
+    }
+    .about__highlights strong {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--color-accent);
+      display: block;
+    }
+    .skill-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-sm);
+    }
+    .skill-badges span {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 0.6rem 1.2rem;          /* REVISED: larger tap target (min height ~44px) */
+      border-radius: 30px;
+      font-size: var(--text-sm);
+      font-family: var(--font-display);
+      transition: var(--transition-base);
+      min-height: 44px;                /* REVISED: ensure touch friendly */
+      display: inline-flex;
+      align-items: center;
+    }
+    .skill-badges span:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    /* ---------- TEMPLATES ---------- */
+    .templates__filter {
+      display: flex;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      padding: 0.6rem 1.5rem;          /* REVISED: larger tap target */
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      transition: var(--transition-base);
+      min-height: 44px;                /* REVISED: touch friendly */
+      display: inline-flex;
+      align-items: center;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-bg);
+    }
+    .templates__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    @media (min-width: 768px) {
+      .templates__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .templates__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .template-card {
+      background: var(--color-surface);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      transition: var(--transition-base);
+      box-shadow: var(--shadow-card);
+    }
+    .template-card:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-glow);
+    }
+    .template-card__thumb {
+      aspect-ratio: 16/9;
+      background: #1E2A38;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-muted);
+      font-size: var(--text-sm);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .template-card__body {
+      padding: var(--space-md);
+    }
+    .template-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-xs);
+    }
+    .template-card__category {
+      font-size: var(--text-xs);
+      color: var(--color-accent);
+      text-transform: uppercase;
+      margin-bottom: var(--space-xs);
+    }
+    .template-card__stack {
+      display: flex;
+      gap: var(--space-xs);
+      margin: var(--space-sm) 0;
+    }
+    .template-card__stack span {
+      background: var(--color-bg);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: var(--text-xs);
+      border: 1px solid var(--color-border);
+    }
+    .template-card__price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--color-accent);
+      margin: var(--space-sm) 0;
+    }
+    .template-card__actions {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    .template-card__btn {
+      flex: 1;
+      padding: 0.6rem;                /* REVISED: larger touch area */
+      font-size: var(--text-sm);
+      text-align: center;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-border);
+      background: transparent;
+      color: var(--color-text);
+      cursor: pointer;
+      transition: var(--transition-base);
+      text-decoration: none;
+      min-height: 44px;                /* REVISED: touch friendly */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .template-card__btn--preview:hover {
+      background: var(--color-accent-dim);
+      border-color: var(--color-accent);
+    }
+    .template-card__btn--demo {
+      background: var(--color-accent);
+      color: var(--color-bg);
+      border-color: var(--color-accent);
+    }
+    .template-card__btn--demo:hover {
+      background: transparent;
+      color: var(--color-accent);
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal__content {
+      background: var(--color-surface);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius-lg);
+      max-width: 800px;
+      width: 90%;
+      border: 1px solid var(--color-accent);
+      position: relative;
+    }
+    .modal__close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--color-muted);
+      transition: var(--transition-base);
+    }
+    .modal__close:hover {
+      color: var(--color-accent);
+    }
+    .modal__preview-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #1E2A38;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-muted);
+      border-radius: var(--border-radius);
+    }
+
+    /* ---------- SERVICES ---------- */
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-md);
+    }
+    .service-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--card-radius);
+      padding: var(--space-lg);
+      text-align: center;
+      transition: var(--transition-base);
+    }
+    .service-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-glow);
+    }
+    .service-card__icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-sm);
+    }
+    .service-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-xs);
+    }
+    .service-card__desc {
+      color: var(--color-muted);
+      margin-bottom: var(--space-md);
+      font-size: 1rem;                 /* REVISED: consistent 16px for readability */
+      line-height: 1.6;
+    }
+    .service-card__cta {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;          /* REVISED: larger touch target */
+      background: transparent;
+      border: 1px solid var(--color-accent);
+      color: var(--color-accent);
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: var(--transition-base);
+      min-height: 44px;                 /* REVISED */
+      line-height: 1.2;
+    }
+    .service-card__cta:hover {
+      background: var(--color-accent);
+      color: var(--color-bg);
+    }
+
+    /* ---------- SKILLS ---------- */
+    .skills__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-md);
+    }
+    .skill-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 500;
+      transition: var(--transition-base);
+      min-height: 100px;                /* REVISED: larger touch area */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .skill-item:hover {
+      border-color: var(--color-accent);
+      transform: scale(1.05);
+    }
+    .skill-item small {
+      display: block;
+      color: var(--color-muted);
+      font-size: var(--text-xs);
+      margin-top: var(--space-xs);
+    }
+    .tools {
+      margin-top: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+    }
+    .tools span {
+      background: var(--color-accent-dim);
+      border: 1px solid var(--color-border);
+      padding: 0.6rem 1.2rem;           /* REVISED: larger tap target */
+      border-radius: 30px;
+      font-size: var(--text-sm);
+      min-height: 44px;                  /* REVISED */
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* ---------- CONTACT ---------- */
+    .contact__form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--color-surface);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius-lg);
+      border: 1px solid var(--color-border);
+    }
+    .contact__field {
+      margin-bottom: var(--space-md);
+    }
+    .contact__field label {
+      display: block;
+      margin-bottom: var(--space-xs);
+      color: var(--color-muted);
+      font-size: var(--text-sm);
+    }
+    .contact__input {
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--color-bg);
+      border: 1px solid #3A4A5A;        /* REVISED: lighter border for better visibility */
+      border-radius: var(--border-radius);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      transition: var(--transition-base);
+    }
+    .contact__input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2); /* REVISED: subtle glow on focus */
+    }
+    .contact__field--error .contact__input {
+      border-color: #ff4444;
+    }
+    .error-message {
+      color: #ff4444;
+      font-size: var(--text-xs);
+      margin-top: 4px;
+      display: none;
+    }
+    .contact__field--error .error-message {
+      display: block;
+    }
+    .contact__submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      border: none;
+      border-radius: var(--border-radius);
+      font-family: var(--font-display);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-base);
+      min-height: 52px;                 /* REVISED: comfortable touch */
+    }
+    .contact__submit:hover {
+      background: transparent;
+      color: var(--color-accent);
+      box-shadow: var(--shadow-glow);
+      border: 1px solid var(--color-accent);
+    }
+    .contact__social {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;                      /* REVISED: increased gap */
+      margin-top: var(--space-lg);
+      flex-wrap: wrap;
+    }
+    .contact__social a {
+      color: var(--color-muted);
+      font-size: 2rem;                   /* REVISED: larger icons */
+      transition: var(--transition-base);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;                       /* REVISED: fixed width for consistent tap */
+      height: 48px;
+      background: var(--color-surface);
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      text-decoration: none;
+    }
+    .contact__social a:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      transform: translateY(-3px);
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      padding: var(--space-lg) 0;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      color: var(--color-muted);
+    }
+    .footer .back-to-top {
+      display: inline-block;
+      margin-top: var(--space-sm);
+      color: var(--color-accent);
+      text-decoration: none;
+      font-family: var(--font-display);
+      padding: 0.5rem 1rem;            /* REVISED: larger tap */
+      min-height: 44px;
+    }
+
+    /* ---------- ANIMATIONS ON SCROLL ---------- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .warna{
+        color: white;
+        text-align: center;
+        line-height: 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container nav-content">
-            <a href="#" class="logo">Agung Cahyono</a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="https://agungwin22.github.io" class="nav-link">Beranda</a></li>
-                <li><a href="#about" class="nav-link">Tentang</a></li>
-                <li><a href="#skills" class="nav-link">Keahlian</a></li>
-                <li><a href="#projects" class="nav-link">Proyek</a></li>
-                <li><a href="pages/contact/contact.html" class="nav-link">Kontak</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+  
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1 class="hero-title">Developer Web & Desainer Futuristik</h1>
-            <p class="hero-subtitle">Mengubah ide menjadi aplikasi web yang fungsional dan siap digunakan.</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">Lihat Proyek</a>
-                <a href="pages/contact/contact.html" class="btn btn-outline">Hubungi Saya</a>
-            </div>
-        </div>
-    </section>
+  <main class="warna">
+      <h1>Sedang di Perbaiki</h1>
+      <h3>Website ini sedang tahap update halaman. maaf untuk ketidaknyamanan bagi anda</h3>
+  </main>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="section-title">Tentang Saya</h2>
-            <div class="about-content">
-                <p>Saya Agung Cahyono, seorang Freelance Web Developer yang berfokus pada pengembangan aplikasi web menggunakan Python (Flask) serta HTML5, CSS3, dan JavaScript (Vanilla). Saya membantu individu maupun bisnis membangun website dan aplikasi web yang rapi, fungsional, dan mudah dikembangkan.</p><br>
-                <p>Spesialisasi saya mencakup pembuatan sistem autentikasi (login & register), CRUD application, dashboard admin, serta integrasi frontend–backend yang terstruktur. Saya menekankan kode yang bersih, alur logika yang jelas, dan performa aplikasi yang stabil, sehingga mudah dipelihara dan dikembangkan ke tahap selanjutnya.</p><br>
-                <p>Saya terbiasa mengerjakan project secara mandiri, berkomunikasi dengan jelas, dan menyelesaikan pekerjaan sesuai kebutuhan klien.</p>
-            </div>
-        </div>
-    </section>
+  <script>
+    (function() {
+      // Wait for DOM
+      document.addEventListener('DOMContentLoaded', function() {
+        // ---------- TYPEWRITER ----------
+        const typeEl = document.getElementById('typewriter');
+        const phrases = ['Frontend Dev', 'Template Maker', 'Open to Freelance'];
+        let i = 0, j = 0, currentPhrase = [], isDeleting = false;
 
-    <!-- Skills Section -->
-    <section class="section" id="skills">
-        <div class="container">
-            <h2 class="section-title">Keahlian Inti</h2>
-            <div class="skills-grid">
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">🐍</div>
-                    <h3 class="skill-name">Web Development (Python – Flask)</h3>
-                    <p class="skill-desc">Membangun aplikasi web backend menggunakan Flask dengan struktur project yang rapi, routing jelas, dan logika aplikasi terorganisir.</p>
-                </div>
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">🔐</div>
-                    <h3 class="skill-name">Authentication & Session Management</h3>
-                    <p class="skill-desc">Implementasi sistem login & register, manajemen session, serta kontrol akses halaman menggunakan Flask dan Flask-Login.</p>
-                </div>
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">🔗</div>
-                    <h3 class="skill-name">CRUD Application & Database Integration</h3>
-                    <p class="skill-desc">Pembuatan fitur Create, Read, Update, Delete (CRUD) dengan integrasi database dan alur data yang konsisten antara backend dan frontend.</p>
-                </div>
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">🖥️</div>
-                    <h3 class="skill-name">Frontend Development (HTML5, CSS3, JavaScript Vanilla)</h3>
-                    <p class="skill-desc">Membangun antarmuka web yang responsif, fungsional, dan mudah digunakan tanpa ketergantungan framework berat.</p>
-                </div>
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">⚡</div>
-                    <h3 class="skill-name">Template Engine (Jinja2)</h3>
-                    <p class="skill-desc">Penggunaan Jinja2 untuk menghindari duplikasi kode, menjaga konsistensi layout, dan mempercepat pengembangan halaman.</p>
-                </div>
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">📂</div>
-                    <h3 class="skill-name">Project Structure & Clean Code</h3>
-                    <p class="skill-desc">Menyusun struktur folder Flask yang scalable serta menulis kode yang mudah dibaca, dirawat, dan dikembangkan.</p>
-                </div>
-                <div class="skill-card scroll-trigger">
-                    <div class="skill-icon">🔎</div>
-                    <h3 class="skill-name">Debugging & Problem Solving</h3>
-                    <p class="skill-desc">Menganalisis error, bug, dan alur aplikasi untuk menemukan akar masalah dan memberikan solusi yang tepat.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        function type() {
+          if (!typeEl) return;
+          if (i < phrases.length) {
+            if (!isDeleting && j <= phrases[i].length) {
+              currentPhrase = phrases[i].substring(0, j);
+              typeEl.textContent = currentPhrase;
+              j++;
+              setTimeout(type, 120);
+            } else if (isDeleting && j >= 0) {
+              currentPhrase = phrases[i].substring(0, j);
+              typeEl.textContent = currentPhrase;
+              j--;
+              setTimeout(type, 60);
+            } else {
+              if (!isDeleting) {
+                isDeleting = true;
+                setTimeout(type, 1000);
+              } else {
+                isDeleting = false;
+                i = (i + 1) % phrases.length;
+                j = 0;
+                setTimeout(type, 200);
+              }
+            }
+          }
+        }
+        type();
 
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <h2 class="section-title">Proyek Unggulan</h2>
-            <div class="projects-grid">
-                <div class="project-card scroll-trigger">
-                    <div class="project-image">🌐</div>
-                    <div class="project-content">
-                        <h3 class="project-title">WebApp Authentication</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Flask</span>
-                            <span class="tech-tag">Flask-sqlalchemy</span>
-                            <span class="tech-tag">Flask-WTF</span>
-                        </div>
-                        <p class="project-description">Web Auth dengan keamanan baik dan menjaga keamanan User dan password hanya diketahui oleh user bukan pengembang</p>
-                        <div class="project-links">
-                            <a href="https://agung222.pythonanywhere.com/" class="btn btn-outline">Demo</a>
-                            <a href="https://github.com/agungwin22/webapp-auth" class="btn btn-primary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card scroll-trigger">
-                    <div class="project-image">🎮</div>
-                    <div class="project-content">
-                        <h3 class="project-title">To Do List App</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">JavaScript Vanilla</span>
-                        </div>
-                        <p class="project-description">Aplikasi To-Do List statis berbasis web untuk membantu pengguna mencatat dan mengelola tugas harian secara sederhana. Pengguna bisa menambahkan tugas baru, menandai tugas selesai, dan menghapus tugas langsung di antarmuka browser. Aplikasi ini dihosting menggunakan GitHub Pages sehingga dapat diakses melalui URL publik tanpa backend server.</p>
-                        <div class="project-links">
-                            <a href="https://agungwin22.github.io/todolist/" class="btn btn-outline">Demo</a>
-                            <a href="https://github.com/agungwin22/todolist" class="btn btn-primary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card scroll-trigger">
-                    <div class="project-image">🔒</div>
-                    <div class="project-content">
-                        <h3 class="project-title">Scanner Keamanan DApp</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Solidity</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">AI</span>
-                        </div>
-                        <p class="project-description">Scanner keamanan otomatis untuk smart contract dengan deteksi kerentanan dan penilaian risiko.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-outline">Demo</a>
-                            <a href="#" class="btn btn-primary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        // ---------- NAVBAR SCROLL EFFECT ----------
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+            navbar.classList.add('navbar--scrolled');
+          } else {
+            navbar.classList.remove('navbar--scrolled');
+          }
+        });
 
-    <!-- Value/Highlight Section -->
-    <section class="section highlight-section" id="value">
-        <div class="container">
-            <h2 class="section-title">Apa Yang Saya Bawa</h2>
-            <div class="highlight-grid">
-                <div class="highlight-item scroll-trigger">
-                    <div class="highlight-icon">💡</div>
-                    <h3 class="highlight-title">Solusi yang Jelas & Terstruktur</h3>
-                    <p class="highlight-desc">Saya membangun aplikasi web dengan alur logika yang rapi dan struktur kode yang mudah dipahami, sehingga project tidak hanya berjalan, tetapi juga mudah dikembangkan di masa depan.</p>
-                </div>
-                <div class="highlight-item scroll-trigger">
-                    <div class="highlight-icon">💬</div>
-                    <h3 class="highlight-title">Komunikasi yang Transparan</h3>
-                    <p class="highlight-desc">Saya terbiasa menjelaskan progres, kendala, dan solusi secara jelas agar klien selalu memahami apa yang sedang dan akan dikerjakan.</p>
-                </div>
-                <div class="highlight-item scroll-trigger">
-                    <div class="highlight-icon">🎯</div>
-                    <h3 class="highlight-title">Fokus pada Kebutuhan Nyata Klien</h3>
-                    <p class="highlight-desc">Saya tidak menambahkan fitur yang tidak diperlukan. Setiap solusi disesuaikan dengan tujuan bisnis atau kebutuhan project klien.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        // ---------- HAMBURGER MENU ----------
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
 
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <div class="container">
-            <h2 class="section-title">Hubungi Saya</h2>
-            <div class="contact-grid">
-                <div class="contact-info scroll-trigger">
-                    <div class="contact-item">
-                        <div class="contact-icon"><img src="assets/icon/gmail.png" alt="gmail"></div>
-                        <div class="contact-text">
-                            <strong>Email</strong><br>
-                            agunguchiha54@gmail.com
-                        </div>
-                    </div>
-                    <!-- <div class="contact-item">
-                        <div class="contact-icon">💼</div>
-                        <div class="contact-text">
-                            <strong>LinkedIn</strong><br>
-                            linkedin.com/in/alexchen
-                        </div>
-                    </div> -->
-                    <div class="contact-item">
-                        <div class="contact-icon"><img src="assets/icon/github.png" alt="Github"></div>
-                        <div class="contact-text">
-                            <strong>GitHub</strong><br>
-                            github.com/agungwin22
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="contact-info scroll-trigger">
-                    <h3>Mari Berkolaborasi</h3>
-                    <p style="color: var(--text-secondary); margin: 1rem 0;">Punya ide atau butuh bantuan pengembangan web? Mulai dari website sederhana hingga aplikasi web dengan Python/Flask, saya terbuka untuk berdiskusi dan membantu Anda membangun solusi yang sesuai dengan kebutuhan Anda.</p>
-                    <a href="pages/contact/contact.html" class="btn btn-primary" style="margin-top: 1rem;">Mulai Percakapan</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        // Close menu when link clicked
+        document.querySelectorAll('.navbar__links a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+          });
+        });
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-logo">Agung Cahyono</div>
-            <div class="footer-social">
-                <a href="https://github.com/agungwin22" class="social-link"><img src="assets/icon/github.png" alt="Github"></a>
-                <!-- <a href="#" class="social-link">LI</a> -->
-                <a href="https://instagram.com/agungquotes" class="social-link"><img src="assets/icon/instagram.png" alt="instagram"></a>
-            </div>
-            <p class="footer-text">&copy; 2026 Agung Cahyono. Membangun masa depan pengembangan web.</p>
-        </div>
-    </footer>
-    <script src="js/main.js"></script>
+        // ---------- SMOOTH SCROLL (already with css, but handle offset) ----------
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              const offset = 80; // navbar height
+              const top = target.getBoundingClientRect().top + window.scrollY - offset;
+              window.scrollTo({ top, behavior: 'smooth' });
+            }
+          });
+        });
+
+        // ---------- FILTER TABS (TEMPLATES) ----------
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.template-card');
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+            cards.forEach(card => {
+              const cat = card.getAttribute('data-category');
+              if (filter === 'all' || cat === filter) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        });
+
+        // ---------- MODAL PREVIEW ----------
+        const modal = document.getElementById('previewModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalContent = document.getElementById('modalPreviewContent');
+
+        document.querySelectorAll('.template-card__btn--preview').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const card = btn.closest('.template-card');
+            const title = card.querySelector('.template-card__title')?.textContent || 'Template';
+            modalContent.innerHTML = `🖼️ Preview: ${title} (gambar dummy 16:9)`;
+            modal.classList.add('active');
+          });
+        });
+
+        closeModal.addEventListener('click', () => {
+          modal.classList.remove('active');
+        });
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // ---------- FORM VALIDATION (vanilla) ----------
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          let valid = true;
+
+          const nameField = document.getElementById('field-name');
+          const nameInput = document.getElementById('name');
+          const emailField = document.getElementById('field-email');
+          const emailInput = document.getElementById('email');
+          const msgField = document.getElementById('field-message');
+          const msgInput = document.getElementById('message');
+
+          // reset errors
+          [nameField, emailField, msgField].forEach(f => f.classList.remove('contact__field--error'));
+
+          if (!nameInput.value.trim()) {
+            nameField.classList.add('contact__field--error');
+            valid = false;
+          }
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(emailInput.value.trim())) {
+            emailField.classList.add('contact__field--error');
+            valid = false;
+          }
+          if (!msgInput.value.trim()) {
+            msgField.classList.add('contact__field--error');
+            valid = false;
+          }
+
+          if (valid) {
+            alert('Pesan terkirim (simulasi). Terima kasih!');
+            form.reset();
+          }
+        });
+
+        // ---------- BACK TO TOP ----------
+        document.getElementById('backToTop').addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ---------- INTERSECTION OBSERVER (fade-up) ----------
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('appear');
+            }
+          });
+        }, { threshold: 0.1 });
+        sections.forEach(s => {
+          s.classList.add('fade-up');
+          observer.observe(s);
+        });
+
+        // initial appear for hero (already visible)
+        setTimeout(() => {
+          document.querySelector('#hero').classList.add('appear');
+        }, 100);
+      });
+    })();
+  </script>
 </body>
 </html>
