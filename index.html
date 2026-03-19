@@ -1,1018 +1,1061 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>agungwin22 | tempat kode bertemu kreasi</title>
-  <!-- Favicon SVG inline (data URI) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%234A00E0%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Inter%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20font-weight%3D%22bold%22%20fill%3D%22white%22%20text-anchor%3D%22middle%22%3EAW%3C%2Ftext%3E%3C%2Fsvg%3E">
-  <!-- Google Fonts: Inter (light 300 to extra-bold 800) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <style>
-    /* ----- CSS RESET & VARIABLES ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    :root {
-      --bg-primary:     #121212;
-      --bg-surface:     #1A1A1A;
-      --bg-elevated:    #222222;
-      --accent-primary: #4A00E0;
-      --accent-glow:    #7B2FFF;
-      --accent-soft:    rgba(74, 0, 224, 0.15);
-      --text-primary:   #F5F5F5;
-      --text-secondary: #A0A0A0;
-      --text-muted:     #555555;
-      --border-subtle:  rgba(255,255,255,0.06);
-      --border-accent:  rgba(74, 0, 224, 0.4);
-      --success:        #00E5A0;
-
-      /* spacing system */
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
-      --space-md: 2rem;
-      --space-lg: 4rem;
-      --space-xl: 6rem;
-
-      /* container max width */
-      --container: 1200px;
-    }
-
-    body {
-      font-family: "Inter", system-ui, sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ----- UTILITY CLASSES & GLOBAL STYLES ----- */
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 var(--space-sm);
-    }
-
-    section {
-      padding: var(--space-lg) 0;
-    }
-
-    /* section headlines */
-    h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: var(--space-md);
-    }
-
-    h2 span {
-      color: var(--accent-primary);
-    }
-
-    /* buttons */
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .btn-primary {
-      background: var(--accent-primary);
-      color: white;
-      box-shadow: 0 4px 14px rgba(74, 0, 224, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-glow);
-      box-shadow: 0 0 20px var(--accent-glow);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--accent-primary);
-      color: var(--text-primary);
-    }
-
-    .btn-outline:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent-glow);
-      box-shadow: 0 0 15px var(--accent-glow);
-    }
-
-    /* badges / pills */
-    .badge {
-      display: inline-block;
-      background: var(--accent-soft);
-      border: 1px solid var(--border-accent);
-      padding: 0.2rem 1rem;
-      border-radius: 30px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-primary);
-    }
-
-    .badge-success {
-      background: rgba(0, 229, 160, 0.15);
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    /* card base */
-    .card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 24px;
-      padding: var(--space-sm);
-      transition: all 0.25s ease;
-    }
-
-    .card:hover {
-      border-color: var(--border-accent);
-      box-shadow: 0 0 30px rgba(74, 0, 224, 0.3);
-      transform: translateY(-4px);
-    }
-
-    /* image placeholders */
-    .img-placeholder {
-      background: var(--bg-elevated);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      aspect-ratio: 16/9;
-      width: 100%;
-      border: 1px dashed var(--border-subtle);
-    }
-
-    .avatar-placeholder {
-      background: linear-gradient(145deg, var(--accent-soft), var(--bg-elevated));
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      border: 2px solid var(--accent-primary);
-    }
-
-    /* ----- NAVBAR (sticky, backdrop blur) ----- */
-    #navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(18, 18, 18, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .navbar-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem var(--space-sm);
-      max-width: var(--container);
-      margin: 0 auto;
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 1.4rem;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, white, var(--accent-glow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: var(--space-sm);
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-glow);
-    }
-
-    .hire-btn {
-      background: transparent;
-      border: 1px solid var(--accent-primary);
-      color: var(--text-primary);
-      padding: 0.4rem 1.2rem;
-      border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    .hire-btn:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent-glow);
-      box-shadow: 0 0 15px var(--accent-glow);
-    }
-
-    /* mobile hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    .hamburger span {
-      width: 26px;
-      height: 2px;
-      background: var(--text-primary);
-      transition: 0.3s;
-      border-radius: 4px;
-    }
-
-    /* mobile styles */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-
-      .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--bg-surface);
-        flex-direction: column;
-        padding: var(--space-md);
-        border-bottom: 1px solid var(--border-subtle);
-        backdrop-filter: blur(12px);
-        transform: translateY(-150%);
-        opacity: 0;
-        transition: all 0.3s ease;
-        pointer-events: none;
-      }
-
-      .nav-menu.active {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      .nav-links {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-md);
-      }
-
-      .hire-btn {
-        margin-top: var(--space-xs);
-      }
-    }
-
-    /* ----- HERO (with grain & fade-in stagger) ----- */
-    #hero {
-      position: relative;
-      overflow: hidden;
-      padding: var(--space-xl) 0;
-    }
-
-    #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 30% 40%, rgba(74,0,224,0.08) 0%, transparent 40%),
-                  repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      animation: fadeUp 0.8s ease forwards;
-    }
-
-    .hero-title span {
-      color: var(--accent-primary);
-      text-shadow: 0 0 15px var(--accent-glow);
-    }
-
-    .hero-sub {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
-      margin: var(--space-sm) 0 var(--space-md);
-      max-width: 600px;
-      animation: fadeUp 0.8s 0.15s ease forwards;
-      opacity: 0;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: var(--space-sm);
-      flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.3s ease forwards;
-      opacity: 0;
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ----- ABOUT 2-COLUMN ----- */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: var(--space-lg);
-      align-items: center;
-    }
-
-    .about-avatar {
-      justify-self: center;
-    }
-
-    .avatar-large {
-      width: 200px;
-      height: 200px;
-      border-width: 4px;
-    }
-
-    .tech-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: var(--space-sm);
-    }
-
-    .pill {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    @media (max-width: 768px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-        text-align: center;
-      }
-    }
-
-    /* ----- WORK GRID 3/2/1 ----- */
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-sm);
-    }
-
-    .work-card {
-      background: var(--bg-surface);
-      border-radius: 24px;
-      border: 1px solid var(--border-subtle);
-      overflow: hidden;
-      transition: all 0.25s;
-    }
-
-    .work-card:hover {
-      transform: scale(1.02);
-      border-color: var(--border-accent);
-      box-shadow: 0 0 30px var(--accent-soft);
-    }
-
-    .work-card .img-placeholder {
-      border-radius: 0;
-      aspect-ratio: 4/3;
-    }
-
-    .work-info {
-      padding: var(--space-sm);
-    }
-
-    .work-info h3 {
-      margin-bottom: 0.25rem;
-    }
-
-    .work-tags {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin: 0.25rem 0;
-    }
-
-    .preview-link {
-      color: var(--accent-glow);
-      text-decoration: none;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    @media (max-width: 1024px) {
-      .work-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 600px) {
-      .work-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ----- PRODUCTS HIGHLIGHT SECTION (bg-surface, bigger padding) ----- */
-    #products {
-      background: var(--bg-surface);
-      padding: var(--space-xl) 0;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-md);
-      margin: var(--space-lg) 0;
-    }
-
-    .product-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-accent);
-      border-radius: 32px;
-      padding: var(--space-md);
-      transition: all 0.3s;
-    }
-
-    .product-card:hover {
-      box-shadow: 0 0 40px var(--accent-primary);
-      border-color: var(--accent-glow);
-    }
-
-    .product-mock {
-      background: var(--bg-primary);
-      border-radius: 20px;
-      aspect-ratio: 1.2/1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: var(--space-sm);
-      border: 1px solid var(--border-accent);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .product-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: var(--space-xs) 0;
-    }
-
-    .product-price {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--success);
-    }
-
-    .btn-product {
-      background: var(--accent-primary);
-      border: none;
-      color: white;
-      width: 100%;
-      margin-top: var(--space-sm);
-      padding: 0.8rem;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .btn-product:hover {
-      background: var(--accent-glow);
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-
-    .trust-line {
-      text-align: center;
-      color: var(--text-muted);
-      margin-top: var(--space-md);
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 800px) {
-      .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 500px) {
-      .products-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ----- SERVICES CARDS ----- */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-md);
-      margin: var(--space-md) 0;
-    }
-
-    .service-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 28px;
-      padding: var(--space-md);
-      text-align: left;
-      transition: 0.2s;
-    }
-
-    .service-card:hover {
-      border-color: var(--accent-primary);
-    }
-
-    .service-icon svg {
-      width: 48px;
-      height: 48px;
-      stroke: var(--accent-glow);
-      fill: none;
-      margin-bottom: var(--space-sm);
-    }
-
-    .price-tag {
-      font-weight: 700;
-      color: var(--success);
-      margin: var(--space-xs) 0;
-    }
-
-    .request-link {
-      display: inline-block;
-      margin-top: var(--space-xs);
-      color: var(--accent-glow);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    @media (max-width: 768px) {
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ----- TESTIMONIALS ----- */
-    .testimonials-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-md);
-      justify-content: center;
-    }
-
-    .testimonial-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 28px;
-      padding: var(--space-md);
-      flex: 1 1 280px;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-
-    .author-avatar {
-      width: 50px;
-      height: 50px;
-      background: var(--bg-elevated);
-      border-radius: 50%;
-      border: 1px solid var(--accent-primary);
-    }
-
-    /* ----- CONTACT FORM ----- */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-lg);
-    }
-
-    .form-group {
-      margin-bottom: var(--space-sm);
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 1rem;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      color: var(--text-primary);
-      font-family: inherit;
-      transition: 0.2s;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent-primary);
-      box-shadow: 0 0 15px var(--accent-soft);
-    }
-
-    .social-links {
-      display: flex;
-      gap: var(--space-sm);
-      margin-top: var(--space-md);
-    }
-
-    .social-icon svg {
-      width: 32px;
-      height: 32px;
-      fill: none;
-      stroke: var(--text-secondary);
-      transition: stroke 0.2s;
-    }
-
-    .social-icon:hover svg {
-      stroke: var(--accent-glow);
-    }
-
-    @media (max-width: 768px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ----- FOOTER ----- */
-    #footer {
-      padding: var(--space-md) 0;
-      border-top: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .footer-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: var(--space-sm);
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-left: var(--space-sm);
-    }
-
-    .footer-links a:hover {
-      color: var(--accent-glow);
-    }
-
-    .back-to-top {
-      color: var(--text-secondary);
-      text-decoration: none;
-      border: 1px solid var(--border-subtle);
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
-    }
-
-    /* misc */
-    .text-gradient {
-      background: linear-gradient(to right, var(--accent-primary), var(--accent-glow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgungWin22 - Frontend Developer & Template Maker</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%238b5cf6;stop-opacity:1' /><stop offset='100%' style='stop-color:%2306b6d4;stop-opacity:1' /></linearGradient></defs><rect width='100' height='100' rx='20' fill='url(%23grad)'/><text x='50' y='65' font-size='50' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'>D</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fontsource.org/inter/400.css" rel="stylesheet">
+    <link href="https://fontsource.org/inter/500.css" rel="stylesheet">
+    <link href="https://fontsource.org/inter/600.css" rel="stylesheet">
+    <link href="https://fontsource.org/inter/700.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a25;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #06b6d4;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --border-color: rgba(139, 92, 246, 0.2);
+            --glass-bg: rgba(26, 26, 37, 0.8);
+            --glass-border: rgba(139, 92, 246, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--accent-primary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .about-content h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Templates Section */
+        .templates {
+            background: var(--bg-primary);
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .template-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .template-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .template-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .template-content {
+            padding: 1.5rem;
+        }
+
+        .template-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--accent-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .template-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .template-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-tag {
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .template-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .template-actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-demo {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-demo:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--accent-primary);
+        }
+
+        .btn-buy {
+            background: var(--accent-gradient);
+            color: var(--text-primary);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-secondary);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .copyright {
+            width: 100%;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .contact-card {
+                padding: 2rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <!-- STICKY NAVBAR #navbar -->
-  <header id="navbar">
-    <div class="navbar-container">
-      <div class="logo">agungwin22</div>
-      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav class="nav-menu" id="navMenu">
-        <ul class="nav-links">
-          <li><a href="#work">Karya</a></li>
-          <li><a href="#products">Produk</a></li>
-          <li><a href="#services">Layanan</a></li>
-          <li><a href="#contact">Kontak</a></li>
-        </ul>
-        <a href="#contact" class="hire-btn">Hubungi Saya</a>
-      </nav>
-    </div>
-  </header>
+    <div class="bg-gradient"></div>
 
-  <main>
-    <!-- HERO #hero -->
-    <section id="hero">
-      <div class="container hero-content">
-        <h1 class="hero-title">Bangun Cepat. <span>Jual Cerdas.</span></h1>
-        <p class="hero-sub">Arsitek frontend mengubah ide menjadi pengalaman web berperforma tinggi dan berfokus konversi.</p>
-        <div class="hero-buttons">
-          <a href="#work" class="btn btn-primary">Lihat Karya</a>
-          <a href="#products" class="btn btn-outline">Jelajahi Template</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">AgungWin22</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#templates">Templates</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="hero-badge">🚀 Frontend Developer & Template Maker</span>
+            <h1>Membuat <span class="gradient-text">Website Modern</span> untuk Masa Depan Digital</h1>
+            <p>Spesialis dalam pengembangan frontend dan pembuatan template website berkualitas tinggi. Temukan template premium saya di marketplace.</p>
+            <div class="hero-buttons">
+                <a href="#templates" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Lihat Templates
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Hubungi Saya
+                </a>
+            </div>
+        </div>
     </section>
 
-    <!-- ABOUT #about -->
-    <section id="about">
-      <div class="container about-grid">
-        <div class="about-avatar">
-          <div class="avatar-placeholder avatar-large">AW</div>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image fade-in">
+                    <div class="about-image-card">
+                        <h3 style="margin-bottom: 1rem;">Tech Stack</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <!-- <span class="skill-tag">React</span> -->
+                            <!-- <span class="skill-tag">Vue.js</span> -->
+                            <!-- <span class="skill-tag">Tailwind CSS</span> -->
+                            <!-- <span class="skill-tag">Next.js</span> -->
+                            <!-- <span class="skill-tag">TypeScript</span> -->
+                            <!-- <span class="skill-tag">Web3</span> -->
+                            <span class="skill-tag">Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-content fade-in">
+                    <h3>Tentang Saya</h3>
+                    <p>Halo! Saya adalah seorang Frontend Developer dengan passion dalam menciptakan pengalaman web yang modern dan user-friendly. Sebagai Template Maker, saya telah membantu ratusan developer dan bisnis untuk memiliki website profesional dengan cepat.</p>
+                    <p>Setiap template yang saya buat dirancang dengan perhatian khusus pada detail, performa, dan kemudahan kustomisasi. Saya percaya bahwa website yang baik harus tidak hanya terlihat bagus, tetapi juga berfungsi dengan sempurna di semua perangkat.</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">Templates Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="about-bio">
-          <h2>Tempat <span class="text-gradient">kode bertemu kreasi</span></h2>
-          <p style="margin-bottom: 1rem; color: var(--text-secondary);">Hai, saya Agung — pengembang frontend dengan pengalaman 6+ tahun. Saya membantu startup dan agensi membangun produk web yang cepat, aksesibel, dan indah. Kode bersih dan desain matang adalah ciri khas saya.</p>
-          <div class="tech-pills">
-            <span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">JavaScript</span><span class="pill">React</span><span class="pill">Figma</span><span class="pill">Tailwind</span><span class="pill">Vite</span>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <!-- WORK #work (portfolio grid) -->
-    <section id="work">
-      <div class="container">
-        <h2>Karya <span class="text-gradient">pilihan</span></h2>
-        <div class="work-grid">
-          <!-- card 1 -->
-          <div class="work-card">
-            <div class="img-placeholder">portfolio 2025</div>
-            <div class="work-info">
-              <h3>Portfolio Minimal</h3>
-              <div class="work-tags">HTML / CSS / JS</div>
-              <a href="#" class="preview-link">Pratinjau →</a>
+    <!-- Templates Section -->
+    <section class="templates" id="templates">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2>Template Premium</h2>
+                <p>Koleksi template website berkualitas tinggi yang siap digunakan untuk berbagai kebutuhan bisnis Anda</p>
             </div>
-          </div>
-          <!-- card 2 -->
-          <div class="work-card">
-            <div class="img-placeholder">landing agensi</div>
-            <div class="work-info">
-              <h3>Agensi Nexus</h3>
-              <div class="work-tags">React / Framer</div>
-              <a href="#" class="preview-link">Pratinjau →</a>
+            <div class="templates-grid">
+                <!-- Template Card 1 -->
+                <div class="template-card fade-in">
+                    <img src="https://image.qwenlm.ai/public_source/ced74b04-455f-484a-b5d5-18a5bbf795dd/1cd7663cc-155e-4281-8dfb-fb453492a901.png" alt="Dashboard Template" class="template-image">
+                    <div class="template-content">
+                        <span class="template-category">Dashboard</span>
+                        <h3 class="template-title">Web3 Dashboard Pro</h3>
+                        <p class="template-description">Template dashboard modern dengan desain Web3, perfect untuk aplikasi crypto, NFT marketplace, atau DeFi platform.</p>
+                        <div class="template-features">
+                            <span class="feature-tag">Responsive</span>
+                            <span class="feature-tag">Dark Mode</span>
+                            <span class="feature-tag">Charts</span>
+                            <span class="feature-tag">React Ready</span>
+                        </div>
+                        <div class="template-actions">
+                            <a href="#" class="btn btn-demo">Demo</a>
+                            <a href="#" class="btn btn-buy">Beli</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template Card 2 -->
+                <div class="template-card fade-in">
+                    <img src="https://image.qwenlm.ai/public_source/ced74b04-455f-484a-b5d5-18a5bbf795dd/1ee6d128c-7d08-4205-a826-eea74a16a927.png" alt="E-commerce Template" class="template-image">
+                    <div class="template-content">
+                        <span class="template-category">E-Commerce</span>
+                        <h3 class="template-title">Shop Modern</h3>
+                        <p class="template-description">Template e-commerce lengkap dengan fitur shopping cart, product gallery, dan checkout process yang smooth.</p>
+                        <div class="template-features">
+                            <span class="feature-tag">Cart System</span>
+                            <span class="feature-tag">Product Filter</span>
+                            <span class="feature-tag">Payment Ready</span>
+                            <span class="feature-tag">Mobile First</span>
+                        </div>
+                        <div class="template-actions">
+                            <a href="#" class="btn btn-demo">Demo</a>
+                            <a href="#" class="btn btn-buy">Beli</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template Card 3 -->
+                <div class="template-card fade-in">
+                    <img src="https://image.qwenlm.ai/public_source/ced74b04-455f-484a-b5d5-18a5bbf795dd/16901b51e-68d6-4180-a4c9-9c0d519748d9.png" alt="Landing Page Template" class="template-image">
+                    <div class="template-content">
+                        <span class="template-category">Landing Page</span>
+                        <h3 class="template-title">SaaS Landing</h3>
+                        <p class="template-description">Landing page profesional untuk produk SaaS dengan conversion-optimized design dan animasi smooth.</p>
+                        <div class="template-features">
+                            <span class="feature-tag">High Conversion</span>
+                            <span class="feature-tag">Animations</span>
+                            <span class="feature-tag">SEO Optimized</span>
+                            <span class="feature-tag">Fast Loading</span>
+                        </div>
+                        <div class="template-actions">
+                            <a href="#" class="btn btn-demo">Demo</a>
+                            <a href="#" class="btn btn-buy">Beli</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template Card 4 -->
+                <div class="template-card fade-in">
+                    <img src="https://image.qwenlm.ai/public_source/ced74b04-455f-484a-b5d5-18a5bbf795dd/1b5a89a95-c449-492c-81e7-9c42cb1ccae4.png" alt="Blog Template" class="template-image">
+                    <div class="template-content">
+                        <span class="template-category">Blog</span>
+                        <h3 class="template-title">Content Hub</h3>
+                        <p class="template-description">Template blog minimalis dengan fokus pada readability dan content presentation yang optimal.</p>
+                        <div class="template-features">
+                            <span class="feature-tag">Clean Design</span>
+                            <span class="feature-tag">Typography</span>
+                            <span class="feature-tag">Categories</span>
+                            <span class="feature-tag">Search</span>
+                        </div>
+                        <div class="template-actions">
+                            <a href="#" class="btn btn-demo">Demo</a>
+                            <a href="#" class="btn btn-buy">Beli</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <!-- card 3 -->
-          <div class="work-card">
-            <div class="img-placeholder">dashboard kit</div>
-            <div class="work-info">
-              <h3>Dasbor Fintech</h3>
-              <div class="work-tags">Vue / Tailwind</div>
-              <a href="#" class="preview-link">Pratinjau →</a>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- PRODUCTS #products (highlight section) -->
-    <section id="products">
-      <div class="container">
-        <h2>Template untuk <span class="text-gradient">pengembang</span>, oleh pengembang</h2>
-        <div class="products-grid">
-          <!-- product 1 -->
-          <div class="product-card">
-            <div class="product-mock">Startup Pro mock</div>
-            <div class="product-header">
-              <h3>Startup Pro</h3>
-              <span class="badge badge-success">Best Seller</span>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2>Hubungi Saya</h2>
+                <p>Punya pertanyaan atau ingin custom template? Jangan ragu untuk menghubungi saya via WhatsApp</p>
             </div>
-            <p style="color: var(--text-secondary); margin: 0.5rem 0;">Landing page SaaS dengan mode gelap</p>
-            <div class="product-price">$12</div>
-            <button class="btn-product" onclick="event.preventDefault()">Dapatkan Template →</button>
-          </div>
-          <!-- product 2 -->
-          <div class="product-card">
-            <div class="product-mock">DevPort mock</div>
-            <div class="product-header">
-              <h3>DevPort</h3>
-              <span class="badge badge-success">Baru</span>
+            <div class="contact-container fade-in">
+                <div class="contact-card">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" id="name" name="name" placeholder="Nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="email@anda.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" name="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                            Kirim via WhatsApp
+                        </button>
+                    </form>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                            <span>+62 823 2231 6366</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span>agunguchiha54@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>Demak, Jawa Tengah, Indonesia</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p style="color: var(--text-secondary); margin: 0.5rem 0;">Portfolio developer dengan blog</p>
-            <div class="product-price">$9</div>
-            <button class="btn-product" onclick="event.preventDefault()">Dapatkan Template →</button>
-          </div>
-          <!-- product 3 -->
-          <div class="product-card">
-            <div class="product-mock">AgencyKit mock</div>
-            <div class="product-header">
-              <h3>AgencyKit</h3>
-              <span class="badge">Populer</span>
-            </div>
-            <p style="color: var(--text-secondary); margin: 0.5rem 0;">Multi‑halaman untuk agensi kreatif</p>
-            <div class="product-price">$15</div>
-            <button class="btn-product" onclick="event.preventDefault()">Dapatkan Template →</button>
-          </div>
         </div>
-        <div class="trust-line">✦ Tersedia di Gumroad & projects.co.id ✦</div>
-      </div>
     </section>
 
-    <!-- SERVICES #services -->
-    <section id="services">
-      <div class="container">
-        <h2>Layanan & <span class="text-gradient">harga</span></h2>
-        <div class="services-grid">
-          <!-- service 1 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
-            </div>
-            <h3>Landing Page Kustom</h3>
-            <p style="color: var(--text-secondary);">Responsif penuh, ramah SEO, sempurna hingga piksel.</p>
-            <div class="price-tag">mulai Rp 2.500.000</div>
-            <a href="#contact" class="request-link">Minta penawaran →</a>
-          </div>
-          <!-- service 2 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M10 6L21 6" /><path d="M10 12L21 12" /><path d="M10 18L21 18" /><path d="M4 6H6" /><path d="M4 12H6" /><path d="M4 18H6" /></svg>
-            </div>
-            <h3>Pemeliharaan Website</h3>
-            <p style="color: var(--text-secondary);">Pembaruan, keamanan, pemantauan performa.</p>
-            <div class="price-tag">mulai Rp 800.000 / bln</div>
-            <a href="#contact" class="request-link">Minta penawaran →</a>
-          </div>
-          <!-- service 3 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7L12 12L22 7L12 2Z" /><path d="M2 17L12 22L22 17" /><path d="M2 12L12 17L22 12" /></svg>
-            </div>
-            <h3>Kustomisasi Template</h3>
-            <p style="color: var(--text-secondary);">Sesuaikan template apapun dengan merek Anda.</p>
-            <div class="price-tag">mulai Rp 1.200.000</div>
-            <a href="#contact" class="request-link">Minta penawaran →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS #testimonials -->
-    <section id="testimonials">
-      <div class="container">
-        <h2>Cerita <span class="text-gradient">klien</span></h2>
-        <div class="testimonials-flex">
-          <div class="testimonial-card">
-            <p>"Agung memberikan hasil di luar ekspektasi. Kodenya bersih dan desainnya tajam. Pasti akan mempekerjakannya lagi."</p>
-            <div class="testimonial-author">
-              <div class="author-avatar"></div>
-              <div><strong>Rina Wijaya</strong><br><span style="color: var(--text-muted);">Pendiri, TechStart</span></div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <p>"Bekerja dengannya sangat lancar. Dia memahami visi kami dan menerjemahkannya ke situs web yang sangat cepat."</p>
-            <div class="testimonial-author">
-              <div class="author-avatar"></div>
-              <div><strong>Dimas Pratama</strong><br><span style="color: var(--text-muted);">CTO, Designly</span></div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <p>"Template yang saya beli sangat fleksibel dan terdokumentasi dengan baik. Menghemat waktu berminggu-minggu."</p>
-            <div class="testimonial-author">
-              <div class="author-avatar"></div>
-              <div><strong>Sari Indah</strong><br><span style="color: var(--text-muted);">Pekerja lepas</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT #contact -->
-    <section id="contact">
-      <div class="container">
-        <h2>Mari <span class="text-gradient">berkolaborasi</span></h2>
-        <div class="contact-grid">
-          <div>
-            <p style="color: var(--text-secondary); margin-bottom: var(--space-sm);">Ada proyek atau butuh template kustom? Kirim pesan.</p>
-            <form id="dummyForm">
-              <div class="form-group">
-                <input type="text" placeholder="Nama Anda" required>
-              </div>
-              <div class="form-group">
-                <input type="email" placeholder="Alamat email" required>
-              </div>
-              <div class="form-group">
-                <textarea rows="4" placeholder="Ceritakan ide Anda..."></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary" style="border: none;">Kirim Pesan</button>
-            </form>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">AgungWin22</div>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#templates">Templates</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
             <div class="social-links">
-              <a href="#" class="social-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
-              <a href="#" class="social-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-              <a href="#" class="social-icon"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><circle cx="12" cy="12" r="10"/><path d="M8.56 8.56v6.88M15.44 8.56v6.88M8.56 12h6.88"/></svg></a>
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
             </div>
-          </div>
-          <div style="background: var(--bg-surface); border-radius: 32px; padding: var(--space-md); border: 1px solid var(--border-subtle);">
-            <h3 style="margin-bottom: var(--space-xs);">agungwin22</h3>
-            <p style="color: var(--text-secondary);">Berbasis di Yogyakarta · remote di seluruh dunia</p>
-            <p style="margin-top: var(--space-sm);">✉️ hello@agungwin22.dev</p>
-          </div>
+            <div class="copyright">
+                <p>&copy; 2026 AgungWin22. All rights reserved.</p>
+            </div>
         </div>
-      </div>
-    </section>
-  </main>
+    </footer>
 
-  <!-- FOOTER #footer -->
-  <footer id="footer">
-    <div class="container footer-container">
-      <div>© 2025 agungwin22 — tempat kode bertemu kreasi</div>
-      <div class="footer-links">
-        <a href="#" class="back-to-top">↑ Kembali ke atas</a>
-        <a href="#">Privasi</a>
-        <a href="#">Ketentuan</a>
-      </div>
-    </div>
-  </footer>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
 
-  <!-- simple vanilla JS: hamburger + form prevent default -->
-  <script>
-    (function() {
-      // Hamburger menu toggle
-      const hamburger = document.getElementById('hamburgerBtn');
-      const navMenu = document.getElementById('navMenu');
-
-      if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-          navMenu.classList.toggle('active');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
         });
 
-        // close menu when link clicked (optional)
-        document.querySelectorAll('.nav-links a, .hire-btn').forEach(link => {
-          link.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-              navMenu.classList.remove('active');
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // WhatsApp Form Submission
+        const contactForm = document.getElementById('contactForm');
+
+        // GANTI NOMOR WHATSAPP DI SINI (format: 628xxxxxxxxxx)
+        const whatsappNumber = '6282322316366';
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Format pesan WhatsApp
+            const whatsappMessage = `Halo! Saya tertarik untuk menghubungi Anda.%0A%0A*Data Pengirim:*%0A👤 Nama: ${name}%0A📧 Email: ${email}%0A%0A*Pesan:*%0A${message}`;
+
+            // Buat URL WhatsApp
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+            // Buka WhatsApp di tab baru
+            window.open(whatsappUrl, '_blank');
+
+            // Reset form setelah dikirim
+            contactForm.reset();
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(18, 18, 26, 0.95)';
+            } else {
+                nav.style.background = 'rgba(26, 26, 37, 0.8)';
             }
-          });
         });
-      }
-
-      // Dummy form submit
-      const form = document.getElementById('dummyForm');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          alert('✨ Terima kasih telah menghubungi. (Demo — ini adalah template)');
-        });
-      }
-
-      // Smooth hover effect for product buttons (just placeholder)
-      document.querySelectorAll('.btn-product').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          alert('🔗 Ini akan mengarah ke marketplace (Gumroad / projects.co.id)');
-        });
-      });
-    })();
-  </script>
-  <!-- no console errors, pure vanilla -->
+    </script>
 </body>
 </html>
+
